@@ -1,0 +1,38 @@
+let :cannot be redecalred   ,but can be updated
+var :    can be re declared and updatable global scope   (doesnt use)
+
+const: no re declare,no updation
+
+ES6 2015 New Standard
+
+Data types:
+1. Number
+2.String
+3. Boolean
+4. Null
+5. Undefined
+6. Symbol
+7. BigInt
+
+non-primitive
+1. Object
+2. Array
+3. Function
+There are 8 basic data types in JavaScript.
+
+Seven primitive data types:
+number    for numbers of any kind: integer or floating-point, integers are limited by ±(253-1).
+bigint       for integer numbers of arbitrary length.
+string       for strings. A string may have zero or more characters, there’s no separate single-character type.
+boolean   for true/false.
+null          for unknown values – a standalone type that has a single value null.
+undefined for unassigned values – a standalone type that has a single value undefined.
+symbo       l for unique identifiers.
+And one non-primitive data type:
+object      for more complex data structures.
+
+The typeof operator allows us to see which type is stored in a variable.
+
+Usually used as typeof x, but typeof(x) is also possible.
+Returns a string with the name of the type, like "string".
+For null returns "object" – this is an error in the language, it’s not actually an object.

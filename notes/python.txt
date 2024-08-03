@@ -1,0 +1,53 @@
+NOTES
+_____________________________________________________________________________________________________________________________________________
+Summary
+Class Methods:
+
+Use the @classmethod decorator.
+Receive the class (cls) as their first argument.
+Can access and modify class-level attributes.
+Can be called on both the class and instances.
+
+Static Methods:
+Use the @staticmethod decorator.
+Do not receive an implicit first argument (self or cls).
+Do not access or modify class or instance-specific data.
+Can be called on both the class and instances, though they are often called on the class.
+___________________________________________________________________________________________________________________________________________________________
+Decorators
+In Python, decorators are a powerful and flexible feature that allow you to modify or extend the behavior of functions or methods without changing their actual code. They are often used for tasks like logging, access control, memoization, and more.
+
+How Decorators Work
+A decorator is essentially a function that takes another function (or method) as its argument and returns a new function that enhances or alters the original one. Decorators are often used with the @decorator_name syntax, which is a shorthand for applying a decorator to a function or method.
+________________________________________________________________________________________________________________________________________
+*args
+In Python, *args is used in function definitions to allow the function to accept an arbitrary number of positional arguments. This can be useful when you don’t know in advance how many arguments might be passed to your function, or when you want to create more flexible and reusable functions.
+
+How *args Works
+When you use *args in a function definition, it collects all the extra positional arguments passed to the function and packs them into a tuple.
+
+
+python
+Copy code
+def my_function(*args):
+    for arg in args:
+        print(arg)
+
+# Calling the function with different numbers of arguments
+my_function(1, 2, 3)
+my_function('a', 'b', 'c', 'd')
+
+________________________________________________________________________________________________________________________________________
+Set {}
+Definition:
+A set is an unordered, mutable collection of unique elements. It does not allow duplicate elements and elements cannot be accessed by their index.
+Mutable: Elements can be added or removed, but the elements themselves must be immutable (e.g., numbers, strings, tuples).
+Unordered: Does not maintain order.
+Unique Elements: Does not allow duplicates.
+
+tuple()
+A tuple is an ordered, immutable collection of elements. It can contain duplicates and allows elements to be accessed by their index.
+
+
+ Frozenset (frozenset)
+Description: Represents an immutable version of a set.

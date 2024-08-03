@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Check List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png'), linear-gradient(to right, #e2e2e2, #ffffff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 60%;
+            width: 60%; /* Reduce the width by 30% */
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            animation: fadeIn 1s ease-in-out;
+            transition: transform 0.2s;
+            width: 100%;
+        }
+        .card:hover {
+            transform: scale(1.02);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .complete-btn {
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            color: black;
+            transition: color 0.3s;
+        }
+        .complete-btn.checked {
+            color: #388E3C;
+        }
+        .complete-btn:hover {
+            color: #388E3C;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn {
+            width: 170px;
+            height: 60px;
+            font-size: 18px;
+            background: #fff;
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+        .btn:hover {
+            box-shadow: inset 0 0 0 4px #ef476f, 
+                        inset 0 0 0 8px #ffd166, 
+                        inset 0 0 0 12px #06d6a0,
+                        inset 0 0 0 16px #118ab2;
+            background: #073b4c;
+            color: #fff;
+        }
+        button {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1em;
+            border: 0px solid transparent;
+            background-color: rgba(100, 77, 237, 0.08);
+            border-radius: 1.25em;
+            transition: all 0.2s linear;
+        }
+        button:hover {
+            box-shadow: 3.4px 2.5px 4.9px rgba(0, 0, 0, 0.025),
+                        8.6px 6.3px 12.4px rgba(0, 0, 0, 0.035),
+                        17.5px 12.8px 25.3px rgba(0, 0, 0, 0.045),
+                        36.1px 26.3px 52.2px rgba(0, 0, 0, 0.055),
+                        99px 72px 143px rgba(0, 0, 0, 0.08);
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 4em;
+            background-color: rgba(0, 0, 0, 0.253);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            top: 25%;
+            left: 110%;
+        }
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent rgba(0, 0, 0, 0.253) transparent transparent;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>To-Do List</h1>
+            <table id="taskTable">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="taskBody">
+                    <!-- Initial tasks will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+            <div class="main">
+                <button class="btn" onclick="addNewTask()">Add New Task</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const initialTasks = [
+            'Coursera (3HRS)',
+            'JS (2HRS)',
+            'Leet Code (2 HRS)',
+            'JOB (1:30 HRS)',
+            'DSA (1:30 HRS)'
+        ];
+
+        // Load saved task states from localStorage when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const taskBody = document.getElementById('taskBody');
+            initialTasks.forEach((task, index) => {
+                const taskIdPrefix = `task${index + 1}`;
+                const row = createTaskRow(taskIdPrefix, task);
+                taskBody.appendChild(row);
+            });
+
+            loadTaskStates();
+        });
+
+        function createTaskRow(taskIdPrefix, task) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${task}</td>
+                <td><button class="complete-btn" onclick="toggleTask(this, '${taskIdPrefix}-Monday')">-</button></td>
+                <td><button class="complete-btn" onclick="toggleTask(this, '${taskIdPrefix}-Tuesday')">-</button></td>
+                <td><button class="complete-btn" onclick="toggleTask(this, '${taskIdPrefix}-Wednesday')">-</button></td>
+                <td><button class="complete-btn" onclick="toggleTask(this, '${taskIdPrefix}-Thursday')">-</button></td>
+                <td><button class="complete-btn" onclick="toggleTask(this, '${taskIdPrefix}-Friday')">-</button></td>
+                <td>
+                    <div class="tooltip">
+                        <button onclick="deleteTask(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" height="25" width="25">
+                                <path fill="#6361D9" d="M8.78842 5.03866C8.86656 4.96052 8.97254 4.91663 9.08305 4.91663H11.4164C11.5269 4.91663 11.6329 4.96052 11.711 5.03866C11.7892 5.11681 11.833 5.22279 11.833 5.33329V5.74939H8.66638V5.33329C8.66638 5.22279 8.71028 5.11681 8.78842 5.03866ZM7.16638 5.74939V5.33329C7.16638 4.82496 7.36832 4.33884 7.72765 3.97951C8.08697 3.62018 8.5731 3.41663 9.08305 3.41663H11.4164C11.9264 3.41663 12.4125 3.62018 12.7718 3.97951C13.1312 4.33884 13.333 4.82496 13.333 5.33329V5.74939H14.833V7.24939H14.2426L13.613 15.411C13.5841 15.8007 13.4076 16.1611 13.1211 16.4206C12.8347 16.6802 12.458 16.8217 12.0684 16.8217H8.43105C8.04139 16.8217 7.66471 16.6802 7.37827 16.4206C7.09183 16.1611 6.91531 15.8007 6.88638 15.411L6.25672 7.24939H5.66638V5.74939H7.16638ZM7.77069 15.3333C7.77448 15.3847 7.79861 15.4326 7.83797 15.4679C7.87732 15.5031 7.92878 15.5226 7.982 15.5217H12.5174C12.5707 15.5226 12.6221 15.5031 12.6615 15.4679C12.7008 15.4326 12.725 15.3847 12.7288 15.3333L13.344 7.24939H7.15544L7.77069 15.3333Z" />
+                            </svg>
+                            <span class="tooltiptext">Delete Task</span>
+                        </button>
+                    </div>
+                </td>
+            `;
+            return row;
+        }
+
+        function toggleTask(button, taskId) {
+            const isChecked = button.classList.toggle('checked');
+            button.textContent = isChecked ? '✓' : '-';
+            saveTaskState(taskId, isChecked);
+        }
+
+        function saveTaskState(taskId, isChecked) {
+            localStorage.setItem(taskId, isChecked);
+        }
+
+        function loadTaskStates() {
+            const buttons = document.querySelectorAll('.complete-btn');
+            buttons.forEach(button => {
+                const taskId = button.getAttribute('onclick').split("'")[1];
+                const isChecked = localStorage.getItem(taskId) === 'true';
+                if (isChecked) {
+                    button.classList.add('checked');
+                    button.textContent = '✓';
+                }
+            });
+        }
+
+        function addNewTask() {
+            const newTask = prompt("Enter the new task:");
+            if (newTask) {
+                const taskBody = document.getElementById('taskBody');
+                const taskIdPrefix = `task${taskBody.rows.length + 1}`;
+                const row = createTaskRow(taskIdPrefix, newTask);
+                taskBody.appendChild(row);
+            }
+        }
+
+        function deleteTask(button) {
+            const row = button.closest('tr');
+            row.remove();
+            // Optionally, you can add code here to remove the task from localStorage if needed.
+        }
+    </script>
+</body>
+</html>
