@@ -9,7 +9,7 @@ def show_all():
 
 #____________________________________________________________________________
 
-def load_jobs(filename=r'C:\Users\gladw\Desktop\python\job_data.json'):
+def load_jobs(filename=r'C:\Users\gladw\Desktop\python\python\job_data.json'):
     try:
         with open(filename, 'r') as files:
             jobs=json.load(files)     
@@ -73,8 +73,8 @@ def edit(pos):
     print("\n\tEnter the attribute To Edit\n\t1 : Company Name\n\t2 : Position\n\t3 : Date\n\t4 : Status ")
     gn =input("\n\tEnter the option  : ")
     if gn == "1":
-        company = input("\n\tEnter the new company name: ")
-        jobs[pos]['company'] = company
+               company = input("\n\tEnter the new company name: ")
+               jobs[pos]['company'] = company
                print(f"\n\tprevious company name  : {job.get('company')}")
                job['company'] = company
                print(f"\n\tNew company name  : {job.get('company')}")
