@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
     <title>Daily Check List</title>
     <style>
         body {
@@ -16,12 +16,16 @@
             overflow: hidden;
         }
         .container {
+          
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 60%;
-            width: 60%; /* Reduce the width by 30% */
+            height: 90vh;
+            width: 70%; /* Reduce the width by 30% */
+            overflow: hidden;
+            flex-wrap: ;
+            
         }
         .card {
             background: rgba(255, 255, 255, 0.3);
@@ -33,6 +37,8 @@
             animation: fadeIn 1s ease-in-out;
             transition: transform 0.2s;
             width: 100%;
+      
+            overflow: hidden;
         }
         .card:hover {
             transform: scale(1.02);
