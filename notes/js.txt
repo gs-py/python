@@ -42,3 +42,4 @@ In JavaScript, != and !== are both used to compare values, but they differ in ho
 != (Not equal): This operator compares two values for inequality after converting them to a common type. This is known as type coercion.
 
 !== (Strict not equal): This operator compares both the values and their types without performing type conversion. It returns true only if the values and types are different.
+

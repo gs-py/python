@@ -40,10 +40,12 @@ my_function('a', 'b', 'c', 'd')
 ________________________________________________________________________________________________________________________________________
 Set {}
 Definition:
-A set is an unordered, mutable collection of unique elements. It does not allow duplicate elements and elements cannot be accessed by their index.
-Mutable: Elements can be added or removed, but the elements themselves must be immutable (e.g., numbers, strings, tuples).
-Unordered: Does not maintain order.
-Unique Elements: Does not allow duplicates.
+                A set is an unordered, mutable collection of unique elements. It does not allow duplicate elements and elements cannot be accessed by their index.
+                Mutable: Elements can be added or removed, but the elements themselves must be immutable (e.g., numbers, strings, tuples).
+                Unordered: Does not maintain order.
+                Unique Elements: Does not allow duplicates.
+
+<html> 
 
 tuple()
 A tuple is an ordered, immutable collection of elements. It can contain duplicates and allows elements to be accessed by their index.
